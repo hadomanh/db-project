@@ -7,7 +7,34 @@ class Shop extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: [1, 2, 3, 4, 5]
+            data: []
+        }
+    }
+
+    UNSAFE_componentWillMount()  {
+
+        try {
+            fetch(
+                `http://localhost:5000`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include'
+                }
+            )
+                .then(res => {
+                    return res.json();
+                })
+                .then(result => {
+                   
+                    this.setState({
+                        data: result.data.data.recordset
+                    });
+                })
+        } catch (error) {
+            window.alert(error.message);
         }
     }
 
@@ -23,7 +50,7 @@ class Shop extends Component {
                         {/* Single Product Area */}
                         {
                             this.state.data.map((x) => {
-                                return (<ProductItem name="Tree" price={x} star={x}/>);
+                                return (<ProductItem name={x.name} price={x.price} star={x.name}/>);
                             })
                         }
 
