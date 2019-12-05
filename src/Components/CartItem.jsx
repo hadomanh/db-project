@@ -1,6 +1,22 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 class CartItem extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {...this.props.item}
+    }
+
+    getQuantity = (event) => {
+        this.setState({
+            [event.target.name]: parseInt(event.target.value)
+        });
+        this.props.changeQuantity({...this.props.item, quantity:parseInt(event.target.value)});
+        console.log("getQuantity");
+        
+    }
+
     render() {
         return (
             <tr>
@@ -8,18 +24,16 @@ class CartItem extends Component {
                     <a><img src="img/bg-img/cart1.jpg" alt="Product" /></a>
                 </td>
                 <td className="cart_product_desc">
-                    <h5>{this.props.name}</h5>
+                    <h5>{this.state.name}</h5>
                 </td>
                 <td className="price">
-                    <span>${this.props.price}</span>
+                    <span>${this.state.price}</span>
                 </td>
                 <td className="qty">
                     <div className="qty-btn d-flex">
-                        <p>Qty</p>
+                        <p>Qty:</p>
                         <div className="quantity">
-                            <span className="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) && qty > 1 ) effect.value--;return false;"><i className="fa fa-minus" aria-hidden="true" /></span>
-                            <input type="number" className="qty-text" id="qty" step={1} min={1} max={300} name="quantity" defaultValue={1} />
-                            <span className="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i className="fa fa-plus" aria-hidden="true" /></span>
+                            <input type="number" className="qty-text" step={1} min={1} max={300} name="quantity" onChange={(event) => this.getQuantity(event)} defaultValue={this.props.item.quantity} />
                         </div>
                     </div>
                 </td>
@@ -29,4 +43,17 @@ class CartItem extends Component {
     }
 }
 
-export default CartItem;
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        changeQuantity: (item) => {
+            dispatch(
+                {
+                    type: "CHANGE_QUANTITY",
+                    item: item
+                }
+            )
+        }
+    }
+}
+
+export default connect(null, mapDispatchToProps)(CartItem)

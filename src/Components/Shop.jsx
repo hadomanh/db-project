@@ -2,16 +2,25 @@ import React, { Component } from 'react';
 import ProductItem from './ProductItem';
 import ShopBar from './ShopBar';
 import Pagination from './Pagination';
+import {connect} from 'react-redux';
 
 class Shop extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: [1, 2, 3, 4, 5]
+            data: []
         }
     }
 
+    componentWillMount() {
+        this.setState({
+            data: this.props.productList
+        });
+    }
+
     render() {
+        console.log(this.props.productList);
+        
         return (
             <div className="amado_product_area section-padding-100">
                 <div className="container-fluid">
@@ -20,10 +29,10 @@ class Shop extends Component {
 
                     {/* second component */}
                     <div className="row">
-                        {/* Single Product Area */}
+
                         {
-                            this.state.data.map((x) => {
-                                return (<ProductItem name="Tree" price={x} star={x}/>);
+                            this.state.data.map((item) => {
+                                return (<ProductItem item={item}/>);
                             })
                         }
 
@@ -38,4 +47,10 @@ class Shop extends Component {
     }
 }
 
-export default Shop;
+const mapStateToProps = (state, ownProps) => {
+    return {
+        productList: state.productList
+    }
+}
+
+export default connect(mapStateToProps)(Shop);
