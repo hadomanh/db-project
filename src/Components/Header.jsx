@@ -3,6 +3,7 @@ import {
     Link,
     NavLink
 } from "react-router-dom";
+import { connect } from 'react-redux';
 
 class Header extends Component {
     render() {
@@ -27,7 +28,7 @@ class Header extends Component {
                 </nav>
                 {/* Cart Menu */}
                 <div className="cart-fav-search mb-100">
-                    <NavLink to="/cart" activeClassName="active"><a className="cart-nav"><img src="img/core-img/cart.png" alt="" />Cart<span>(0)</span></a></NavLink>
+                    <NavLink to="/cart" activeClassName="active"><a className="cart-nav"><img src="img/core-img/cart.png" alt="" />Cart<span>({this.props.cart.length})</span></a></NavLink>
                     <a className="search-nav"><img src="img/core-img/search.png" alt="" /> Search</a>
                 </div>
                 {/* Social Button */}
@@ -43,4 +44,10 @@ class Header extends Component {
     }
 }
 
-export default Header;
+const mapStateToProps = (state, ownProps) => {
+    return {
+        cart: state.cart
+    }
+}
+
+export default connect(mapStateToProps)(Header)

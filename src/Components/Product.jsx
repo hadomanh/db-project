@@ -1,7 +1,48 @@
 import React, { Component } from 'react';
 import ProductBar from './ProductBar';
+import { connect } from 'react-redux';
 
 class Product extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            isClicked: false,
+            quantity: 1
+        }
+    }
+
+    getQuantity = (event) => {
+        this.setState({
+            [event.target.name]: parseInt(event.target.value)
+        });
+    }
+
+    addItemBtn = () => {
+        this.props.addItem(
+            {
+                ...this.props.productItem,
+                quantity: parseInt(this.state.quantity)
+            }
+        );
+
+        console.log("prd: " + this.state.quantity);
+        
+        
+        this.setState({
+            isClicked: true
+        });
+    }
+
+    showRate = () => {
+        var result = [];
+        for (let index = 0; index < this.props.productItem.star; index++) {
+            result.push(<i className="fa fa-star" aria-hidden="true" />);
+        }
+
+        return result;
+    }
+
     render() {
         return (
             <div className="single-product-area section-padding-100 clearfix">
@@ -52,39 +93,49 @@ class Product extends Component {
                             <div className="single_product_desc text-left">
                                 <div className="product-meta-data">
                                     <div className="line" />
-                                    <p className="product-price">$180</p>
+                                    <p className="product-price">${this.props.productItem.price}</p>
                                     <a>
-                                        <h6>White Modern Chair</h6>
+                                        <h6>{this.props.productItem.name}</h6>
                                     </a>
 
                                     {/* Ratings & Review */}
                                     <div className="ratings-review mb-15 d-flex align-items-center justify-content-between">
                                         <div className="ratings">
-                                            <i className="fa fa-star" aria-hidden="true" />
-                                            <i className="fa fa-star" aria-hidden="true" />
-                                            <i className="fa fa-star" aria-hidden="true" />
-                                            <i className="fa fa-star" aria-hidden="true" />
-                                            <i className="fa fa-star" aria-hidden="true" />
+                                            {
+                                                this.showRate()
+                                            }
                                         </div>
 
                                     </div>
 
                                 </div>
                                 <div className="short_overview my-5">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid quae eveniet culpa officia quidem mollitia impedit iste asperiores nisi reprehenderit consequatur, autem, nostrum pariatur enim?</p>
+                                    <p>{this.props.productItem.description}</p>
                                 </div>
-                                {/* Add to Cart Form */}
-                                <form className="cart clearfix" method="post">
+
+                                <div className="cart clearfix">
                                     <div className="cart-btn d-flex mb-50">
-                                        <p>Qty</p>
-                                        <div className="quantity">
-                                            <span className="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) && qty > 1 ) effect.value--;return false;"><i className="fa fa-caret-down" aria-hidden="true" /></span>
-                                            <input type="number" className="qty-text" id="qty" step={1} min={1} max={300} name="quantity" defaultValue={1} />
-                                            <span className="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i className="fa fa-caret-up" aria-hidden="true" /></span>
+                                        <p>Qty:</p>
+                                        <div className="quantity form-group">
+                                            <input className="form-control qty-text" type="number" name="quantity" step={1} min={1} max={300} defaultValue={1} onChange={(event) => this.getQuantity(event)} />
                                         </div>
                                     </div>
-                                    <button type="submit" name="addtocart" value={5} className="btn amado-btn">Add to cart</button>
-                                </form>
+
+
+
+                                    {(() => {
+                                        if (this.state.isClicked)
+                                            return (<div className="btn amado-btn" style={{ backgroundColor: "darkgreen" }}>
+                                                Added to cart!
+                                        </div>)
+
+                                        else return (<div className="btn amado-btn" onClick={() => this.addItemBtn()}>
+                                            Add to cart
+                                    </div>)
+                                    })()}
+
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -95,4 +146,21 @@ class Product extends Component {
     }
 }
 
-export default Product;
+const mapStateToProps = (state, ownProps) => {
+    return {
+        productItem: state.productItem
+    }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        addItem: (item) => {
+            dispatch({
+                type: "ADD_CART_ITEM",
+                item: item
+            })
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Product)

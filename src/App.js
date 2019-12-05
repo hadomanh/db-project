@@ -16,6 +16,7 @@ import {
 import Cart from './Components/Cart';
 
 function App() {
+  
   return (
     <div className="App">
       <Router>
@@ -26,6 +27,7 @@ function App() {
           <Header />
 
           <Switch>
+
             <Route path="/home">
               <Shop />
             </Route>

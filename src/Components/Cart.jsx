@@ -1,8 +1,28 @@
 import React, { Component } from 'react';
 import CartItem from './CartItem';
 import CartTotal from './CartTotal';
+import { connect } from 'react-redux';
+import Store from '../Store/Store';
 
 class Cart extends Component {
+
+    constructor(props) {
+        super(props);
+
+    }
+
+    getTotal = () => {
+        var total = 0;
+
+        Store.getState().cart.map((item) => {
+            total += item.quantity * item.price;
+        });
+
+        return total;
+
+    }
+
+
     render() {
         return (
             <div className="cart-table-area section-padding-100">
@@ -22,17 +42,22 @@ class Cart extends Component {
                                             <th>Quantity</th>
                                         </tr>
                                     </thead>
+                                    
                                     <tbody>
-                                        <CartItem name="Modern White Chair" price={150}/>
-                                        <CartItem name="Modern White Chair" price={150}/>
-                                        <CartItem name="Modern White Chair" price={150}/>
+
+                                        {
+                                            this.props.cart.map((item) => (
+                                                <CartItem item={item} />
+                                            ))
+                                        }
+
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                        
-                        
-                        <CartTotal total={450}/>
+
+
+                        <CartTotal total={this.getTotal()}/>
                     </div>
                 </div>
             </div>
@@ -41,4 +66,10 @@ class Cart extends Component {
     }
 }
 
-export default Cart;
+const mapStateToProps = (state, ownProps) => {
+    return {
+        cart: state.cart
+    }
+}
+
+export default connect(mapStateToProps)(Cart);

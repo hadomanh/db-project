@@ -1,6 +1,28 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import Store from "../Store/Store";
 
 class CartTotal extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+
+        }
+    }
+
+
+    getTotal = () => {
+        var total = 0;
+
+        this.props.cart.map((item) => {
+            total += item.quantity * item.price;
+        });
+
+        return total;
+
+    }
+
     render() {
         return (
             <div className="col-12 col-lg-4">
@@ -9,10 +31,10 @@ class CartTotal extends Component {
                     <ul className="summary-table">
                         <li><span>subtotal:</span> <span>${this.props.total}</span></li>
                         <li><span>delivery:</span> <span>Free</span></li>
-                        <li><span>total:</span> <span>${this.props.total}</span></li>
+                        <li><span>total:</span> <span>${this.getTotal()}</span></li>
                     </ul>
                     <div className="cart-btn mt-100">
-                        <a href="cart.html" className="btn amado-btn w-100">Checkout</a>
+                        <a className="btn amado-btn w-100">Checkout</a>
                     </div>
                 </div>
             </div>
@@ -20,4 +42,10 @@ class CartTotal extends Component {
     }
 }
 
-export default CartTotal;
+const mapStateToProps = (state, ownProps) => {
+    return {
+        cart: state.cart
+    }
+}
+
+export default connect(mapStateToProps)(CartTotal)

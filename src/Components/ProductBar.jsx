@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 class ProductBar extends Component {
     render() {
@@ -7,10 +8,9 @@ class ProductBar extends Component {
                 <div className="col-12">
                     <nav aria-label="breadcrumb">
                         <ol className="breadcrumb mt-50">
-                            <li className="breadcrumb-item"><a href="#">Home</a></li>
-                            <li className="breadcrumb-item"><a href="#">Furniture</a></li>
-                            <li className="breadcrumb-item"><a href="#">Chairs</a></li>
-                            <li className="breadcrumb-item active" aria-current="page">white modern chair</li>
+                            <li className="breadcrumb-item"><a>Home</a></li>
+                            <li className="breadcrumb-item"><a>Product</a></li>
+                            <li className="breadcrumb-item active" aria-current="page">{this.props.productItem.name}</li>
                         </ol>
                     </nav>
                 </div>
@@ -19,4 +19,10 @@ class ProductBar extends Component {
     }
 }
 
-export default ProductBar;
+const mapStateToProps = (state, ownProps) => {
+    return {
+        productItem: state.productItem
+    }
+}
+
+export default connect(mapStateToProps)(ProductBar)

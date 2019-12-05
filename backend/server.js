@@ -36,7 +36,7 @@ sql.connect(config, function (err) {
         // // query to the database and get the records
     
         app.get('/', async (req,res)=>{
-           try{ request.query(`select TOP(3) * from Product`, function (err,data) {
+           try{ request.query(`select * from Product`, function (err,data) {
             
                 if (err) {
                     res.status(500).json({
