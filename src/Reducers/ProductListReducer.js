@@ -1,3 +1,25 @@
+
+// try {
+//     fetch(
+//         `http://localhost:5000`,
+//         {
+//             method: 'GET',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             },
+//             credentials: 'include'
+//         }
+//     )
+//         .then(res => {
+//             return res.json();
+//         })
+//         .then(result => {
+//             const ProductListInitialState = result.data.data.recordset
+//         })
+// } catch (error) {
+//     window.alert(error.message);
+// }
+
 const ProductListInitialState = [
     {
         id: "1",
@@ -21,6 +43,8 @@ const ProductListInitialState = [
         description: "You’ve never seen a watch like this."
     }
 ]
+
+
 const ProductList = (state = ProductListInitialState, action) => {
     switch (action.type) {
         case "SET_PRODUCT_LIST":

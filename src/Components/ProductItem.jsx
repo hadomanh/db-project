@@ -17,8 +17,6 @@ class ProductItem extends Component {
         this.setState(this.props.item);
     }
 
-
-
     showRate = () => {
         var result = [];
         for (let index = 0; index < this.state.star; index++) {
@@ -57,7 +55,7 @@ class ProductItem extends Component {
                                 {this.showRate()}
 
                             </div>
-                            <div className="cart">
+                            <div className="cart" onClick={()=>{this.addToCart(this.props.item)}}>
                                 <a data-toggle="tooltip" data-placement="left" title="Add to Cart"><img src="img/core-img/cart.png" alt="" /></a>
                             </div>
                         </div>
