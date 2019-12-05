@@ -46,7 +46,9 @@ class ProductItem extends Component {
 
                             </div>
                             <div className="cart">
-                                <a href="cart.html" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img src="img/core-img/cart.png" alt="" /></a>
+                                <button  style={{backgroundColor:'white',border:'0px'}} 
+                                
+                                ><a href="cart.html" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img src="img/core-img/cart.png" alt="" /></a></button>
                             </div>
                         </div>
                     </div>
