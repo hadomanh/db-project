@@ -14,13 +14,13 @@ import {
   Link
 } from "react-router-dom";
 import Cart from './Components/Cart';
+import RegisterForm from './Components/RegisterForm';
 
 function App() {
-  
+
   return (
     <div className="App">
       <Router>
-        <SearchBar />
 
         <div className="main-content-wrapper d-flex clearfix">
           <Nav />
@@ -32,12 +32,16 @@ function App() {
               <Shop />
             </Route>
 
+            <Route path="/register">
+              <RegisterForm/>
+            </Route>
+
             <Route path="/detail">
               <Product />
             </Route>
 
             <Route path="/cart">
-              <Cart/>
+              <Cart />
             </Route>
 
           </Switch>
