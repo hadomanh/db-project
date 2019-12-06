@@ -26,6 +26,13 @@ class ProductItem extends Component {
         return result;
     }
 
+    addToCartBtn = ()=>{
+        this.props.addItem({
+            ...this.state,
+            quantity: 1
+        });
+    }
+
     render() {
         return (
             <div className="col-12 col-sm-6 col-md-12 col-xl-6">
@@ -55,7 +62,7 @@ class ProductItem extends Component {
                                 {this.showRate()}
 
                             </div>
-                            <div className="cart" onClick={()=>{this.addToCart(this.props.item)}}>
+                            <div className="cart" onClick={()=>{this.addToCartBtn()}}>
                                 <a data-toggle="tooltip" data-placement="left" title="Add to Cart"><img src="img/core-img/cart.png" alt="" /></a>
                             </div>
                         </div>
@@ -70,6 +77,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         setProductItem: (data) => {
             dispatch({ type: "SET_PRODUCT_ITEM", item: data })
+        },
+        addItem: (item) => {
+            dispatch({
+                type: "ADD_CART_ITEM",
+                item: item
+            })
         }
     }
 }
