@@ -7,7 +7,8 @@ class Shop extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            search: ""
+            search: "",
+            data:[]
         }
     }
 
@@ -21,7 +22,7 @@ class Shop extends Component {
     }
     render() {
         var result = [];
-        this.props.productList.map((item) => {
+        this.state.data.map((item) => {
             if (item.name.indexOf(this.state.search) !== -1) {
                 result.push(item);
             }
