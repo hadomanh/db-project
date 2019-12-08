@@ -3,7 +3,6 @@ import ProductItem from './ProductItem';
 import ShopBar from './ShopBar';
 import Pagination from './Pagination';
 import { connect } from 'react-redux';
-
 class Shop extends Component {
     constructor(props) {
         super(props);
@@ -13,13 +12,18 @@ class Shop extends Component {
     }
 
     componentWillMount() {
-        this.setState({
-            data: this.props.productList
-        });
+        // this.setState({
+        //     data: this.props.productList
+        // });
+        this.props.productList.then(data=>{this.setState({
+            data:data
+        })})
     }
 
     render() {
-        console.log(this.props.productList);
+        // console.log('productlist',this.props.productList.then(data=>{this.setState({
+        //     data:data
+        // })}));
 
         return (
             <div className="amado_product_area section-padding-100">
@@ -34,6 +38,7 @@ class Shop extends Component {
                             this.state.data.map((item) => {
                                 return (<ProductItem item={item} />);
                             })
+                            // console.log(this.props.productList)
                         }
 
                     </div>

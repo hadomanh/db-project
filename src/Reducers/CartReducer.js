@@ -17,7 +17,7 @@ const CartInitialState = [
         price: 2530,
         quantity: 2
     }
-]
+]  
 const Cart = (state = CartInitialState, action) => {
 
     switch (action.type) {

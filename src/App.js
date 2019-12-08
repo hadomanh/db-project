@@ -7,6 +7,8 @@ import Nav from './Components/Nav';
 import Header from './Components/Header';
 import Shop from './Components/Shop';
 import Product from './Components/Product';
+import Login from './Components/Login';
+import RegisterPage from './Components/RegisterPage'
 import {
   BrowserRouter as Router,
   Switch,
@@ -40,6 +42,14 @@ function App() {
               <Cart/>
             </Route>
 
+            <Route path='/login'>
+              <Login/>
+            </Route>
+
+
+            <Route path='/register'>
+              <RegisterPage/>
+            </Route>
           </Switch>
 
         </div>
