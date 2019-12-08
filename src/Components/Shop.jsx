@@ -3,7 +3,6 @@ import ProductItem from './ProductItem';
 import ShopBar from './ShopBar';
 import Pagination from './Pagination';
 import { connect } from 'react-redux';
-
 class Shop extends Component {
     constructor(props) {
         super(props);
@@ -12,6 +11,14 @@ class Shop extends Component {
         }
     }
 
+    componentWillMount() {
+        // this.setState({
+        //     data: this.props.productList
+        // });
+        this.props.productList.then(data=>{this.setState({
+            data:data
+        })})
+    }
     render() {
         var result = [];
         this.props.productList.map((item) => {
@@ -32,6 +39,7 @@ class Shop extends Component {
                             result.map((item) => {
                                 return (<ProductItem item={item} />);
                             })
+                            // console.log(this.props.productList)
                         }
 
                     </div>
