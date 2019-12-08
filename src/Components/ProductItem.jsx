@@ -8,22 +8,24 @@ class ProductItem extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            ...this.props.item
         }
-    }
-
-
-    componentWillMount() {
-        this.setState(this.props.item);
     }
 
     showRate = () => {
         var result = [];
-        for (let index = 0; index < this.state.star; index++) {
+        for (let index = 0; index < this.props.item.star; index++) {
             result.push(<i className="fa fa-star" aria-hidden="true" />);
         }
 
         return result;
+    }
+
+    addToCartBtn = ()=>{
+        this.props.addItem({
+            ...this.props.item,
+            quantity: 1
+        });
     }
 
     render() {
@@ -32,7 +34,7 @@ class ProductItem extends Component {
                 <div className="single-product-wrapper">
                     {/* Product Image */}
                     <Link to="/detail">
-                        <div className="product-img" onClick={() => this.props.setProductItem(this.state)}>
+                        <div className="product-img" onClick={() => this.props.setProductItem(this.props.item)}>
                             <img src="img/product-img/product2.jpg" alt="" />
                             {/* Hover Thumb */}
                             <img className="hover-img" src="img/product-img/product3.jpg" alt="" />
@@ -44,8 +46,8 @@ class ProductItem extends Component {
                         {/* Product Meta Data */}
                         <div className="product-meta-data text-left">
                             <div className="line" />
-                            <p className="product-price">${this.state.price}</p>
-                            <h6>{this.state.name}</h6>
+                            <p className="product-price">${this.props.item.price}</p>
+                            <h6>{this.props.item.name}</h6>
 
                         </div>
                         {/* Ratings & Cart */}
@@ -55,7 +57,7 @@ class ProductItem extends Component {
                                 {this.showRate()}
 
                             </div>
-                            <div className="cart" onClick={()=>{this.addToCart(this.props.item)}}>
+                            <div className="cart" style={{cursor: "pointer"}} onClick={()=>{this.addToCartBtn()}}>
                                 <a data-toggle="tooltip" data-placement="left" title="Add to Cart"><img src="img/core-img/cart.png" alt="" /></a>
                             </div>
                         </div>
@@ -70,6 +72,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         setProductItem: (data) => {
             dispatch({ type: "SET_PRODUCT_ITEM", item: data })
+        },
+        addItem: (item) => {
+            dispatch({
+                type: "ADD_CART_ITEM",
+                item: item
+            })
         }
     }
 }

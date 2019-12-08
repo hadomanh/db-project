@@ -23,13 +23,13 @@ class Header extends Component {
                 <nav className="amado-nav">
                     <ul>
                         <li><a><NavLink to="/home" activeClassName="active">Home</NavLink></a></li>
+                        <li><a><NavLink to="/register" activeClassName="active">Register</NavLink></a></li>
                         <li><a>Checkout</a></li>
                     </ul>
                 </nav>
                 {/* Cart Menu */}
                 <div className="cart-fav-search mb-100">
                     <NavLink to="/cart" activeClassName="active"><a className="cart-nav"><img src="img/core-img/cart.png" alt="" />Cart<span>({this.props.cart.length})</span></a></NavLink>
-                    <a className="search-nav"><img src="img/core-img/search.png" alt="" /> Search</a>
                 </div>
                 {/* Social Button */}
                 <div className="social-info d-flex justify-content-between">
