@@ -5,7 +5,8 @@ class CartItem extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {...this.props.item}
+        this.state = {
+            ...this.props.item}
     }
 
     getQuantity = (event) => {

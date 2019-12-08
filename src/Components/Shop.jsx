@@ -7,7 +7,7 @@ class Shop extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: []
+            search: ""
         }
     }
 
@@ -19,23 +19,24 @@ class Shop extends Component {
             data:data
         })})
     }
-
     render() {
-        // console.log('productlist',this.props.productList.then(data=>{this.setState({
-        //     data:data
-        // })}));
+        var result = [];
+        this.props.productList.map((item) => {
+            if (item.name.indexOf(this.state.search) !== -1) {
+                result.push(item);
+            }
+        })
 
         return (
             <div className="amado_product_area section-padding-100">
                 <div className="container-fluid">
                     {/* first component */}
-                    <ShopBar />
+                    <ShopBar searchFor={(data) => this.setState({ search: data })} />
 
                     {/* second component */}
                     <div className="row">
-
                         {
-                            this.state.data.map((item) => {
+                            result.map((item) => {
                                 return (<ProductItem item={item} />);
                             })
                             // console.log(this.props.productList)

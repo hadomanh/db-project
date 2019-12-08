@@ -8,22 +8,14 @@ class Cart extends Component {
 
     constructor(props) {
         super(props);
-
-    }
-
-    getTotal = () => {
-        var total = 0;
-
-        Store.getState().cart.map((item) => {
-            total += item.quantity * item.price;
-        });
-
-        return total;
-
+        this.state={
+            
+        }
     }
 
 
     render() {
+
         return (
             <div className="cart-table-area section-padding-100">
                 <div className="container-fluid">
@@ -57,7 +49,8 @@ class Cart extends Component {
                         </div>
 
 
-                        <CartTotal total={this.getTotal()}/>
+                        <CartTotal />
+
                     </div>
                 </div>
             </div>
