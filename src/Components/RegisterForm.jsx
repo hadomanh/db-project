@@ -124,7 +124,7 @@ class RegisterForm extends Component {
                                             <input type="email" className="form-control" placeholder="Email" required onChange={this.handleEmailChange} />
                                         </div>
                                         <div className="col-12 mb-3">
-                                            <input type="password" className="form-control" placeholder="Password" required onChange={this.handlePasswordChange}/>
+                                            <input type="password" className="form-control" placeholder="Password" required onChange={this.handlePasswordChange} />
                                         </div>
                                         <div className="col-12 mb-3">
                                             <input type="password" className="form-control" placeholder="Confirm password" required onChange={this.handleRepeatPasswordChange} />

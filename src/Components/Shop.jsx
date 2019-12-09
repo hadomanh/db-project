@@ -12,17 +12,15 @@ class Shop extends Component {
         }
     }
 
-    componentWillMount() {
-        // this.setState({
-        //     data: this.props.productList
-        // });
-        this.props.productList.then(data=>{this.setState({
-            data:data
-        })})
-    }
+    // componentWillMount() {
+    //     this.props.productList.then(data=>{this.setState({
+    //         data:data
+    //     })})
+    // }
+
     render() {
         var result = [];
-        this.state.data.map((item) => {
+        this.props.productList.map((item) => {
             if (item.name.indexOf(this.state.search) !== -1) {
                 result.push(item);
             }
