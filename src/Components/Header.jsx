@@ -16,13 +16,14 @@ class Header extends Component {
                 {/* Logo */}
                 <div className="logo">
                     <Link to="/home">
-                        <img src="img/core-img/logo.png" alt="" />
+                        <img src="img/core-img/logo.jpg" alt="" />
                     </Link>
                 </div>
                 {/* Amado Nav */}
                 <nav className="amado-nav">
                     <ul>
                         <li><a><NavLink to="/home" activeClassName="active">Home</NavLink></a></li>
+                        <li><a><NavLink to="/login" activeClassName="active">Login</NavLink></a></li>
                         <li><a><NavLink to="/register" activeClassName="active">Register</NavLink></a></li>
                         <li><a>Checkout</a></li>
                     </ul>

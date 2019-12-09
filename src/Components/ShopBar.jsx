@@ -23,7 +23,7 @@ class ShopBar extends Component {
                         <div className="form-group">
                             <div className="btn-group">
                                 <input type="text" className="form-control col-12" aria-describedby="helpId" onChange={(event) => this.setText(event)} placeholder="Search for..." />
-                                <div className="btn btn-primary">Go</div>
+                                <div className="btn btn-warning text-light">Go</div>
                             </div>
                         </div>
                         {/* Sorting */}
