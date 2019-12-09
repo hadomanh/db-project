@@ -110,15 +110,8 @@ sql.connect(config, function (err) {
                                     });
                                 }
                                 else {
-                                    //hash pw
-                                    // const hasPassword = bcryptjs.hashSync(req.body.password, 10);
-                                    // console.log('pass ne ', hasPassword);
-                                    //create user record
-                                    // const newUser = await UsersModel.create({
-                                    //     email: req.body.email,
-                                    //     password: hasPassword,
-                                    //     fullName: req.body.fullName
-                                    // });
+                                    const hasPassword = bcryptjs.hashSync(req.body.password, 10);
+                                    console.log('pass ne',hasPassword);
                                     request.query(`INSERT INTO Users
                             ( 
                               email ,
@@ -129,8 +122,8 @@ sql.connect(config, function (err) {
                     VALUES  ( 
                               '${req.body.email}' , 
                               '${req.body.name}' , 
-                              '${req.body.password}' , 
-                              1 
+                              '${hasPassword}' , 
+                              2 
                             ) `, function (err, data) {
                                 if(err) console.log(err);
                                 else{console.log('data them vao',data);
@@ -138,15 +131,9 @@ sql.connect(config, function (err) {
                                     success: true,
                                     message:'sign up success'
                                 });}
-                                
                                     })
-
-
                                 }
                             })
-
-
-
                         }
             }
             catch (error) {
@@ -156,18 +143,9 @@ sql.connect(config, function (err) {
                 })
             }
         });
-
-
-
         app.post("/user/login", async (req, res) => {
             try {
-
                 console.log(req.body.email);
-                // res.status(200).json({
-                //     success: true,
-                //     message: "Login Success",
-
-                // });
                 request.query(`select * from Users where email='${req.body.email}' `, function (err, data) {
                     console.log('data login', data);
                     if (data.recordset.length==0) {
@@ -176,7 +154,8 @@ sql.connect(config, function (err) {
                             message: "Email doesn't exist"
                         })
                     }
-                    else if (req.body.password!= data.recordset[0].password) {
+                    else if (!bcryptjs.compareSync(req.body.password, data.recordset[0].password)
+                        ) {
                         console.log('pass ne', data.recordset[0].password);
                         res.status(400).json({
                             success: false,
