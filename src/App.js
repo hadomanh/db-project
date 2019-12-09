@@ -1,14 +1,12 @@
 import React from 'react';
 import './App.css';
-import SearchBar from './Components/SearchBar';
 import NewsLetter from './Components/NewsLetter';
 import Footer from './Components/Footer';
 import Nav from './Components/Nav';
 import Header from './Components/Header';
 import Shop from './Components/Shop';
 import Product from './Components/Product';
-import Login from './Components/Login';
-import RegisterPage from './Components/RegisterPage'
+import Login from './Components/LoginForm';
 import {
   BrowserRouter as Router,
   Switch,
@@ -48,11 +46,6 @@ function App() {
 
             <Route path='/login'>
               <Login/>
-            </Route>
-
-
-            <Route path='/register'>
-              <RegisterPage/>
             </Route>
           </Switch>
 
