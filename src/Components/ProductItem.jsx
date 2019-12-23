@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-    Link
-} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 class ProductItem extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            email:'',
             ...this.props.item
         }
     }
-
+    componentDidMount () {
+        console.log('state nenenee',this.state);
+    }
     showRate = () => {
         var result = [];
         for (let index = 0; index < this.props.item.star; index++) {
@@ -22,6 +23,32 @@ class ProductItem extends Component {
     }
 
     addToCartBtn = ()=>{
+        console.log('item add to cart ne',this.props.item);
+        fetch('http://localhost:5000/addtocart', {
+            method: 'POST', //PUT
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                item: this.props.item,
+            }),
+            credentials: 'include',
+        })
+            .then(function (response) {
+                //response.JSON() -> only when server response with json
+                //response.text() -> only when server response with string
+                return response.json();
+
+            })
+            .then(function (data) {
+                // handle response data
+                console.log(' Data:', data);
+                console.log('data message ne', data.message);
+            })
+            .catch(function (err) {
+                console.log(err);
+                window.alert(err.message);
+            })
         this.props.addItem({
             ...this.props.item,
             quantity: 1
@@ -73,10 +100,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         setProductItem: (data) => {
             dispatch({ type: "SET_PRODUCT_ITEM", item: data })
         },
-        addItem: (item) => {
+        addItem: (x) => {
             dispatch({
                 type: "ADD_CART_ITEM",
-                item: item
+                item: x
             })
         }
     }

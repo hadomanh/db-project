@@ -10,11 +10,37 @@ class CartItem extends Component {
     }
 
     getQuantity = (event) => {
+        fetch('http://localhost:5000/updateitem', {
+            method: 'POST', //PUT
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                item: this.props.item,
+                quantity: event.target.value,
+            }),
+            credentials: 'include',
+        })
+            .then(function (response) {
+                //response.JSON() -> only when server response with json
+                //response.text() -> only when server response with string
+                return response.json();
+
+            })
+            .then(function (data) {
+                // handle response data
+                console.log(' Data:', data);
+                console.log('data message ne', data.message);
+            })
+            .catch(function (err) {
+                console.log(err);
+                window.alert(err.message);
+            })
         this.setState({
             [event.target.name]: parseInt(event.target.value)
         });
         this.props.changeQuantity({...this.props.item, quantity:parseInt(event.target.value)});
-        console.log("getQuantity");
+        console.log("getQuantity", this.state.productID);
         
     }
 
