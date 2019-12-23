@@ -75,8 +75,8 @@ class RegisterForm extends Component {
                         password: this.state.pass,
                         repeatPass: this.state.repeatPass,
                         name: this.state.name,
-                        address: this.state.address,
-                        phoneno: this.state.phoneno,
+                        // address: this.state.address,
+                        // phoneno: this.state.phoneno,
 
                     }),
                 })

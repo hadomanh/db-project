@@ -8,14 +8,33 @@ class Cart extends Component {
 
     constructor(props) {
         super(props);
-        this.state={
-            
+        this.state = {
+            data: []
         }
+    }
+
+    getCart = () => {
+        this.props.cart.then(data => {
+            this.setState({
+                data: data
+            });
+            console.log('data ne cart ne 2', this.state.data)
+        });
+    }
+
+    //WARNING! To be deprecated in React v17. Use componentDidMount instead.
+    componentDidMount() {
+        this.props.cart.then(data => {
+            this.setState({
+                data: data
+            });
+            console.log('data ne card ne', this.state.data)
+        });
     }
 
 
     render() {
-
+    
         return (
             <div className="cart-table-area section-padding-100">
                 <div className="container-fluid">
@@ -24,6 +43,7 @@ class Cart extends Component {
                             <div className="cart-title mt-50">
                                 <h2>Shopping Cart</h2>
                             </div>
+
                             <div className="cart-table clearfix">
                                 <table className="table table-responsive">
                                     <thead>
@@ -34,11 +54,11 @@ class Cart extends Component {
                                             <th>Quantity</th>
                                         </tr>
                                     </thead>
-                                    
+
                                     <tbody>
 
                                         {
-                                            this.props.cart.map((item) => (
+                                            this.state.data.map((item) => (
                                                 <CartItem item={item} />
                                             ))
                                         }
