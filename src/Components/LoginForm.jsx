@@ -68,30 +68,31 @@ class Login extends PureComponent {
     render() {
         return (
             <div className="cart-table-area section-padding-100">
-                <div className="container">
-                    <div className="cart-tile">
-                        <h2>Login</h2>
-                    </div>
+                <div className="container-fluid">
+                    <div className="row">
+                        <div className="col-12 col-lg-8">
+                            <div className="checkout_details_area mt-50 clearfix">
+                                <div className="cart-title">
+                                    <h2>Login</h2>
+                                </div>
+                                <div className="form-group " >
+                                    <div className="row">
+                                        <div className="col-3"></div>
+                                        <input type="email" className="form-control col-6" placeholder="Email" required onChange={this.handleEmailChange} />
 
-                    <div className="form-group">
-                        <div className="row">
-                            <div className="col-3"></div>
-                            <input type="email" className="form-control col-6" placeholder="Email" required onChange={this.handleEmailChange} />
-                        </div>
-                        
-                        <div className="row mt-3">
-                            <div className="col-3"></div>
-                            <input type="password" className="form-control col-6" placeholder="Password" required onChange={this.handlePasswordChange} />
-                        </div>
-                        
-                        <div className="row mt-3">
-                            <div className="col-3"></div>
-                            <div className="col-6 text-left"><Link to="/register">Register now</Link></div>
-                            
-                        </div>
+                                        <div className="col-3"></div>
+                                        <div className="col-3"></div>
+                                        <input type="password" className="form-control col-6 mt-3" placeholder="Password" required onChange={this.handlePasswordChange} />
 
-                        <div className="btn amado-btn mt-3" style={{ fontSize: 15 }} onClick={this.handleLogin}>
-                            Sign in
+
+                                        <div className="col-12">
+                                            <div className="btn amado-btn mt-3" style={{ fontSize: 15 }} onClick={this.handleLogin}>
+                                                Sign in
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                     </div>

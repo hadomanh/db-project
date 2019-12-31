@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import CartItem from './CartItem';
 import CartTotal from './CartTotal';
 import { connect } from 'react-redux';
 import Store from '../Store/Store';
+import Checkout from './Checkout';
+import CartDetail from './CartDetail';
 
 class Cart extends Component {
 
     constructor(props) {
         super(props);
-        this.state={
-            
+        this.state = {
+
         }
     }
 
@@ -21,31 +22,16 @@ class Cart extends Component {
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-12 col-lg-8">
-                            <div className="cart-title mt-50">
-                                <h2>Shopping Cart</h2>
-                            </div>
-                            <div className="cart-table clearfix">
-                                <table className="table table-responsive">
-                                    <thead>
-                                        <tr>
-                                            <th />
-                                            <th>Name</th>
-                                            <th>Price</th>
-                                            <th>Quantity</th>
-                                        </tr>
-                                    </thead>
-                                    
-                                    <tbody>
+                            
+                            {(
+                                () => {
+                                    if (this.props.checkout)
+                                        return (<Checkout />)
+                                    else
+                                        return (<CartDetail />)
+                                }
+                            )()}
 
-                                        {
-                                            this.props.cart.map((item) => (
-                                                <CartItem item={item} />
-                                            ))
-                                        }
-
-                                    </tbody>
-                                </table>
-                            </div>
                         </div>
 
 
@@ -61,7 +47,8 @@ class Cart extends Component {
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        cart: state.cart
+        cart: state.cart,
+        checkout: state.checkout
     }
 }
 
