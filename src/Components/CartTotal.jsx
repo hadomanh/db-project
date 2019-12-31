@@ -24,8 +24,8 @@ class CartTotal extends Component {
     }
 
     render() {
-        
-        Store.subscribe(()=>{
+
+        Store.subscribe(() => {
             this.setState({
                 total: this.getTotal()
             });
@@ -41,9 +41,19 @@ class CartTotal extends Component {
                         <li><span>delivery:</span> <span>Free</span></li>
                         <li><span>total:</span> <span>${this.state.total}</span></li>
                     </ul>
-                    <div className="cart-btn mt-100">
-                        <a className="btn amado-btn w-100">Checkout</a>
-                    </div>
+
+
+                    {(
+                        () => {
+                            if (!this.props.checkout)
+                                return (
+                                    <div className="cart-btn mt-100" onClick={this.props.checkoutBtn}>
+                                        <a className="btn amado-btn w-100">Checkout</a>
+                                    </div>
+                                )
+                        }
+                    )()}
+
                 </div>
             </div>
         );
@@ -52,8 +62,17 @@ class CartTotal extends Component {
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        cart: state.cart
+        cart: state.cart,
+        checkout: state.checkout
     }
 }
 
-export default connect(mapStateToProps)(CartTotal)
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        checkoutBtn: () => {
+            dispatch({type: "CHECKOUT_BTN_CLICK"})
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CartTotal)

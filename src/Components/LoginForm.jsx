@@ -73,20 +73,18 @@ class Login extends PureComponent {
                                 </div>
                                 <div className="form-group " >
                                     <div className="row">
+                                        <div className="col-3"></div>
+                                        <input type="email" className="form-control col-6" placeholder="Email" required onChange={this.handleEmailChange} />
 
+                                        <div className="col-3"></div>
+                                        <div className="col-3"></div>
+                                        <input type="password" className="form-control col-6 mt-3" placeholder="Password" required onChange={this.handlePasswordChange} />
 
-                                        <div className="col mb-3">
-                                            <input type="email" className="form-control col-6" placeholder="Email" required onChange={this.handleEmailChange} />
-                                        </div>
-
-                                        <div className="col-12 mb-3">
-                                            <input type="password" className="form-control col-6" placeholder="Password" required onChange={this.handlePasswordChange} />
-                                        </div>
 
                                         <div className="col-12">
                                             <div className="btn amado-btn mt-3" style={{ fontSize: 15 }} onClick={this.handleLogin}>
                                                 Sign in
-                                      </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
