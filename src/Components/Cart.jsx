@@ -10,11 +10,7 @@ class Cart extends Component {
     constructor(props) {
         super(props);
         this.state = {
-<<<<<<< HEAD
-
-=======
             data: []
->>>>>>> 4b65e559e4f5d3e19b425290056db3a9f8706cb4
         }
     }
 
@@ -45,7 +41,6 @@ class Cart extends Component {
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-12 col-lg-8">
-<<<<<<< HEAD
                             
                             {(
                                 () => {
@@ -55,30 +50,6 @@ class Cart extends Component {
                                         return (<CartDetail />)
                                 }
                             )()}
-=======
-                            <div className="cart-title mt-50">
-                                <h2>Shopping Cart</h2>
-                            </div>
-
-                            <div className="cart-table clearfix">
-                                <table className="table table-responsive">
-                                    <thead>
-                                        <tr>
-                                            <th />
-                                            <th>Name</th>
-                                            <th>Price</th>
-                                            <th>Quantity</th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-
-                                        {
-                                            this.state.data.map((item) => (
-                                                <CartItem item={item} />
-                                            ))
-                                        }
->>>>>>> 4b65e559e4f5d3e19b425290056db3a9f8706cb4
 
                         </div>
 
