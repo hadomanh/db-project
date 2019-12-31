@@ -29,9 +29,17 @@ class Header extends Component {
                     </ul>
                 </nav>
                 {/* Cart Menu */}
-                <div className="cart-fav-search mb-100">
+                {/* <div className="cart-fav-search mb-100">
                     <NavLink to="/cart" activeClassName="active"><a className="cart-nav"><img src="img/core-img/cart.png" alt="" />Cart<span>({this.props.cart.length})</span></a></NavLink>
-                </div>
+                </div> */}
+
+                {(()=>{
+                    if( window.localStorage.getItem("email") )
+                    return (<div className="cart-fav-search mb-100">
+                    <NavLink to="/cart" activeClassName="active"><a className="cart-nav"><img src="img/core-img/cart.png" alt="" />Cart<span>({this.props.cart.length})</span></a></NavLink>
+                </div>)
+                })()}
+
                 {/* Social Button */}
                 <div className="social-info d-flex justify-content-between">
                     <a href="#"><i className="fa fa-pinterest" aria-hidden="true" /></a>

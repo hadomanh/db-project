@@ -12,15 +12,17 @@ class Shop extends Component {
         }
     }
 
-    // componentWillMount() {
-    //     this.props.productList.then(data=>{this.setState({
-    //         data:data
-    //     })})
-    // }
+    componentWillMount() {
+        this.props.productList.then(data=>{
+            console.log(data);
+            this.setState({
+            data:data
+        })});
+    }
 
     render() {
         var result = [];
-        this.props.productList.map((item) => {
+        this.state.data.map((item) => {
             if (item.name.indexOf(this.state.search) !== -1) {
                 result.push(item);
             }
@@ -31,7 +33,6 @@ class Shop extends Component {
                 <div className="container-fluid">
                     {/* first component */}
                     <ShopBar searchFor={(data) => this.setState({ search: data })} />
-
                     {/* second component */}
                     <div className="row">
                         {
@@ -41,13 +42,14 @@ class Shop extends Component {
                             // console.log(this.props.productList)
                         }
 
+                        {/* {this.state.data.map((item)=>{
+                            return (<ProductItem item={item}/>);
+                        })} */}
                     </div>
-
                     {/* third component */}
                     <Pagination />
                 </div>
             </div>
-
         );
     }
 }

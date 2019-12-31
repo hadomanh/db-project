@@ -1,4 +1,8 @@
 import React, { PureComponent } from 'react'
+import {
+    Link,
+    NavLink
+} from "react-router-dom";
 
 class Login extends PureComponent {
     constructor(props) {
@@ -64,6 +68,7 @@ class Login extends PureComponent {
     render() {
         return (
             <div className="cart-table-area section-padding-100">
+<<<<<<< HEAD
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-12 col-lg-8">
@@ -89,10 +94,37 @@ class Login extends PureComponent {
                                     </div>
                                 </div>
                             </div>
+=======
+                <div className="container">
+                    <div className="cart-tile">
+                        <h2>Login</h2>
+                    </div>
+
+                    <div className="form-group">
+                        <div className="row">
+                            <div className="col-3"></div>
+                            <input type="email" className="form-control col-6" placeholder="Email" required onChange={this.handleEmailChange} />
+                        </div>
+                        
+                        <div className="row mt-3">
+                            <div className="col-3"></div>
+                            <input type="password" className="form-control col-6" placeholder="Password" required onChange={this.handlePasswordChange} />
+                        </div>
+                        
+                        <div className="row mt-3">
+                            <div className="col-3"></div>
+                            <div className="col-6 text-left"><Link to="/register">Register now</Link></div>
+                            
+                        </div>
+
+                        <div className="btn amado-btn mt-3" style={{ fontSize: 15 }} onClick={this.handleLogin}>
+                            Sign in
+>>>>>>> 4b65e559e4f5d3e19b425290056db3a9f8706cb4
                         </div>
 
                     </div>
                 </div>
+
             </div>
 
         )
