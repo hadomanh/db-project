@@ -25,7 +25,7 @@ class Header extends Component {
                         <li><a><NavLink to="/home" activeClassName="active">Home</NavLink></a></li>
                         <li><a><NavLink to="/login" activeClassName="active">Login</NavLink></a></li>
                         <li><a><NavLink to="/register" activeClassName="active">Register</NavLink></a></li>
-                        <li><a>Checkout</a></li>
+                        <li><a>Log out</a></li>
                     </ul>
                 </nav>
                 {/* Cart Menu */}
