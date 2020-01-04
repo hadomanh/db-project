@@ -62,9 +62,9 @@ class ProductItem extends Component {
                     {/* Product Image */}
                     <Link to="/detail">
                         <div className="product-img" onClick={() => this.props.setProductItem(this.props.item)}>
-                            <img src="img/product-img/product2.jpg" alt="" />
+                            <img src={"img/product-img/" + this.props.item.imageURL +"1.jpg"} alt="" />
                             {/* Hover Thumb */}
-                            <img className="hover-img" src="img/product-img/product3.jpg" alt="" />
+                            <img className="hover-img" src={"img/product-img/" + this.props.item.imageURL +"2.jpg"} alt="" />
                         </div>
                     </Link>
 
@@ -75,7 +75,6 @@ class ProductItem extends Component {
                             <div className="line" />
                             <p className="product-price">${this.props.item.price}</p>
                             <h6>{this.props.item.name}</h6>
-
                         </div>
                         {/* Ratings & Cart */}
                         <div className="ratings-cart text-right">

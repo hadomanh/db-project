@@ -7,6 +7,8 @@ import Header from './Components/Header';
 import Shop from './Components/Shop';
 import Product from './Components/Product';
 import Login from './Components/LoginForm';
+import UploadFiles from './Components/UploadFiles';
+import LogOut from './Components/LogOut';
 import {
   BrowserRouter as Router,
   Switch,
@@ -28,8 +30,13 @@ function App() {
 
           <Switch>
 
-            <Route path="/home">
+            <Route path="/" exact={true}>
               <Shop />
+            </Route>
+
+
+            <Route path="/logout" exact={true}>
+              <LogOut />
             </Route>
 
             <Route path="/register">
@@ -38,6 +45,10 @@ function App() {
 
             <Route path="/detail">
               <Product />
+            </Route>
+
+            <Route path="/upload">
+              <UploadFiles />
             </Route>
 
             <Route path="/cart">

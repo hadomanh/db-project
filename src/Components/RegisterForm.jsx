@@ -11,6 +11,7 @@ class RegisterForm extends Component {
             name: '',
             address: '',
             phoneno: '',
+            isClicked: false
         }
     }
 
@@ -59,6 +60,7 @@ class RegisterForm extends Component {
     }
 
     handleFormSubmit = (event) => {
+        var that=this;
         event.preventDefault();
         if (this.state.pass !== this.state.repeatPass) { document.querySelector('.canhbao').innerText = 'Password and Repeat Pass dont match'; }
         else
@@ -69,15 +71,16 @@ class RegisterForm extends Component {
                     method: 'POST', //PUT
                     headers: {
                         'Content-Type': 'application/json',
-                    },
+                    },credentials: 'include',
                     body: JSON.stringify({
                         email: this.state.email,
                         password: this.state.pass,
                         repeatPass: this.state.repeatPass,
                         name: this.state.name,
+                        phone: this.state.phoneno,
+                        address: this.state.address,
                         // address: this.state.address,
                         // phoneno: this.state.phoneno,
-
                     }),
                 })
                     .then(function (response) {
@@ -93,8 +96,11 @@ class RegisterForm extends Component {
                         if (data.message === 'Email has been used') {
                             document.querySelector('.canhbao2').innerHTML = 'Email has been used';
                         }
-                        else {
-                            // window.location.href=`/users/login `;
+                        else {     
+                            window.location.reload();     
+                            that.setState({
+                                isClicked: true
+                            })
                         }
                     })
                     .catch(function (err) {
@@ -112,6 +118,18 @@ class RegisterForm extends Component {
                     <div className="row">
                         <div className="col-12 col-lg-8">
                             <div className="checkout_details_area mt-50 clearfix">
+                                {(() => {
+                                    if (this.state.isClicked === true)
+                                        return (
+                                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                                Register success!
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                        )
+                                })()}
+
                                 <div className="cart-title">
                                     <h2>Register</h2>
                                 </div>
@@ -121,12 +139,15 @@ class RegisterForm extends Component {
                                             <input type="text" className="form-control" placeholder="Name" required onChange={this.handleNameChange} />
                                         </div>
                                         <div className="col-12 mb-3">
+                                        <div className='canhbao2'></div>
                                             <input type="email" className="form-control" placeholder="Email" required onChange={this.handleEmailChange} />
                                         </div>
                                         <div className="col-12 mb-3">
-                                            <input type="password" className="form-control" placeholder="Password" required onChange={this.handlePasswordChange} />
+                                            <div className='canhbao1'></div>
+                                            <input type="password" className=" form-control" placeholder="Password" required onChange={this.handlePasswordChange} />
                                         </div>
                                         <div className="col-12 mb-3">
+                                        <div className='canhbao'></div>
                                             <input type="password" className="form-control" placeholder="Confirm password" required onChange={this.handleRepeatPasswordChange} />
                                         </div>
                                         <div className="col-12 mb-3">

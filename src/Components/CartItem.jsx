@@ -44,11 +44,48 @@ class CartItem extends Component {
         
     }
 
+
+    handleDelete = async (event) => {
+        event.preventDefault();
+
+        try {
+            const data = await fetch("http://localhost:5000/delCartProduct", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    item: this.props.item
+                }),
+            }).then((res) => { return res.json(); });
+            console.log('data delete product', data);
+            if (!data.success) {
+                this.setState({
+                    errMessage: data.message,
+                });
+            } else {
+                //save data to localStorage
+                console.log('oke')
+                // window.location.href = "/";
+
+                this.setState({ isDelete: true })
+                window.location.reload(false);
+            }
+        } catch (err) {
+            this.setState({
+                errMessage: err.message
+            });
+        }
+    }
     render() {
+        
         return (
+            
+                
             <tr>
                 <td className="cart_product_img">
-                    <a><img src="img/bg-img/cart1.jpg" alt="Product" /></a>
+                    <a><img src={"img/bg-img/" + this.state.imageURL +".jpg"} alt="Product" /></a>
                 </td>
                 <td className="cart_product_desc">
                     <h5>{this.state.name}</h5>
@@ -64,6 +101,7 @@ class CartItem extends Component {
                         </div>
                     </div>
                 </td>
+                <td><div className="btn btn-danger" onClick={this.handleDelete}>Remove</div></td>
             </tr>
 
         );

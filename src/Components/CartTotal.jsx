@@ -20,15 +20,17 @@ class CartTotal extends Component {
            
         })
         .then(()=>{this.props.cart.then(data => {
-            data.forEach(item => {
+            console.log('data carttotal',data);
+            if(data){data.forEach(item => {
                 // total += item.price * item.quantity;
                 var total=this.state.total;
                 this.setState({
                     total: total +item.price*item.quantity
                 });
-                
-            });
-          
+            });}
+            else{
+                console.log('hay dang nhap');
+            }
         }
         );})
         
@@ -102,7 +104,7 @@ class CartTotal extends Component {
                     <ul className="summary-table">
                         <li><span>subtotal:</span> <span>${this.state.total}</span></li>
                         <li><span>delivery:</span> <span>$30</span></li>
-                        <li><span>total:</span> <span>${0 + 30}</span></li>
+                        <li><span>total:</span> <span>${this.state.total + 30}</span></li>
                     </ul>
 
 
