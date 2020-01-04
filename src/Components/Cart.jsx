@@ -10,7 +10,8 @@ class Cart extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: []
+            data: [],
+            isCheckout: false
         }
     }
 
@@ -35,17 +36,30 @@ class Cart extends Component {
 
 
     render() {
-    
+
         return (
             <div className="cart-table-area section-padding-100">
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-12 col-lg-8">
-                            
+                            {(
+                                () => {
+                                    if (this.state.isCheckout)
+                                        return (
+                                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                                Thanks for your support!
+                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                        )
+                                }
+                            )()}
+
                             {(
                                 () => {
                                     if (this.props.checkout)
-                                        return (<Checkout />)
+                                        return (<Checkout checkoutnow={()=>this.setState({ isCheckout: true })} />)
                                     else
                                         return (<CartDetail />)
                                 }

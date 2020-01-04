@@ -8,7 +8,8 @@ class Product extends Component {
         super(props);
         this.state = {
             isClicked: false,
-            quantity: 1
+            quantity: 1,
+            isDelete: false
         }
     }
 
@@ -26,13 +27,72 @@ class Product extends Component {
             }
         );
 
-        console.log("prd: " + this.state.quantity);
-        
-        
         this.setState({
             isClicked: true
         });
+
+        fetch('http://localhost:5000/addtocart', {
+            method: 'POST', //PUT
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                item: this.props.productItem,
+            }),
+            credentials: 'include',
+        })
+            .then(function (response) {
+                //response.JSON() -> only when server response with json
+                //response.text() -> only when server response with string
+                return response.json();
+
+            })
+            .then(function (data) {
+                // handle response data
+                console.log(' Data:', data);
+                console.log('data message ne', data.message);
+            })
+            .catch(function (err) {
+                console.log(err);
+                window.alert(err.message);
+            })
+
     }
+
+    handleDelete = async (event) => {
+        event.preventDefault();
+
+        try {
+            const data = await fetch("http://localhost:5000/delProduct", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    item: this.props.productItem
+                }),
+            }).then((res) => { return res.json(); });
+            console.log('data delete product', data);
+            if (!data.success) {
+                this.setState({
+                    errMessage: data.message,
+                });
+            } else {
+                //save data to localStorage
+                console.log('oke')
+                // window.location.href = "/";
+
+                this.setState({ isDelete: true })
+
+            }
+        } catch (err) {
+            this.setState({
+                errMessage: err.message
+            });
+        }
+    }
+
 
     showRate = () => {
         var result = [];
@@ -54,34 +114,34 @@ class Product extends Component {
                             <div className="single_product_thumb">
                                 <div id="product_details_slider" className="carousel slide" data-ride="carousel">
                                     <ol className="carousel-indicators">
-                                        <li className="active" data-target="#product_details_slider" data-slide-to={0} style={{ backgroundImage: 'url(img/product-img/pro-big-1.jpg)' }}>
+                                        <li className="active" data-target="#product_details_slider" data-slide-to={0} style={{ backgroundImage: 'url(img/product-img/' + this.props.productItem.imageURL + '1.jpg' }}>
                                         </li>
-                                        <li data-target="#product_details_slider" data-slide-to={1} style={{ backgroundImage: 'url(img/product-img/pro-big-2.jpg)' }}>
+                                        <li data-target="#product_details_slider" data-slide-to={1} style={{ backgroundImage: 'url(img/product-img/' + this.props.productItem.imageURL + '2.jpg' }}>
                                         </li>
-                                        <li data-target="#product_details_slider" data-slide-to={2} style={{ backgroundImage: 'url(img/product-img/pro-big-3.jpg)' }}>
+                                        <li data-target="#product_details_slider" data-slide-to={2} style={{ backgroundImage: 'url(img/product-img/' + this.props.productItem.imageURL + '3.jpg' }}>
                                         </li>
-                                        <li data-target="#product_details_slider" data-slide-to={3} style={{ backgroundImage: 'url(img/product-img/pro-big-4.jpg)' }}>
+                                        <li data-target="#product_details_slider" data-slide-to={3} style={{ backgroundImage: 'url(img/product-img/' + this.props.productItem.imageURL + '4.jpg' }}>
                                         </li>
                                     </ol>
                                     <div className="carousel-inner">
                                         <div className="carousel-item active">
-                                            <a className="gallery_img" href="img/product-img/pro-big-1.jpg">
-                                                <img className="d-block w-100" src="img/product-img/pro-big-1.jpg" alt="First slide" />
+                                            <a className="gallery_img" href={"img/product-img/" + this.props.productItem.imageURL + "1.jpg"}>
+                                                <img className="d-block w-100" src={"img/product-img/" + this.props.productItem.imageURL + "1.jpg"} alt="First slide" />
                                             </a>
                                         </div>
                                         <div className="carousel-item">
-                                            <a className="gallery_img" href="img/product-img/pro-big-2.jpg">
-                                                <img className="d-block w-100" src="img/product-img/pro-big-2.jpg" alt="Second slide" />
+                                            <a className="gallery_img" href={"img/product-img/" + this.props.productItem.imageURL + "2.jpg"}>
+                                                <img className="d-block w-100" src={"img/product-img/" + this.props.productItem.imageURL + "2.jpg"} alt="Second slide" />
                                             </a>
                                         </div>
                                         <div className="carousel-item">
-                                            <a className="gallery_img" href="img/product-img/pro-big-3.jpg">
-                                                <img className="d-block w-100" src="img/product-img/pro-big-3.jpg" alt="Third slide" />
+                                            <a className="gallery_img" href={"img/product-img/" + this.props.productItem.imageURL + "3.jpg"}>
+                                                <img className="d-block w-100" src={"img/product-img/" + this.props.productItem.imageURL + "3.jpg"} alt="Third slide" />
                                             </a>
                                         </div>
                                         <div className="carousel-item">
-                                            <a className="gallery_img" href="img/product-img/pro-big-4.jpg">
-                                                <img className="d-block w-100" src="img/product-img/pro-big-4.jpg" alt="Fourth slide" />
+                                            <a className="gallery_img" href={"img/product-img/" + this.props.productItem.imageURL + "4.jpg"}>
+                                                <img className="d-block w-100" src={"img/product-img/" + this.props.productItem.imageURL + "4.jpg"} alt="Fourth slide" />
                                             </a>
                                         </div>
                                     </div>
@@ -92,11 +152,37 @@ class Product extends Component {
                         <div className="col-12 col-lg-5">
                             <div className="single_product_desc text-left">
                                 <div className="product-meta-data">
+
+
+                                    {(
+                                        () => {
+                                            if (this.state.isDelete)
+                                                return (
+                                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                        Item deleted!
+                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                )
+                                        }
+                                    )()}
+
+
                                     <div className="line" />
                                     <p className="product-price">${this.props.productItem.price}</p>
                                     <a>
                                         <h6>{this.props.productItem.name}</h6>
                                     </a>
+
+                                    {(
+                                        () => {
+                                            if (JSON.parse(localStorage.getItem('thongtin')).permission === 1)
+                                                return (
+                                                    <div className="btn btn-outline-danger" onClick={(event) => this.handleDelete(event)}>Delete</div>
+                                                )
+                                        }
+                                    )()}
 
                                     {/* Ratings & Review */}
                                     <div className="ratings-review mb-15 d-flex align-items-center justify-content-between">
@@ -114,12 +200,14 @@ class Product extends Component {
                                 </div>
 
                                 <div className="cart clearfix">
-                                    <div className="cart-btn d-flex mb-50">
+                                    {/* <div className="cart-btn d-flex mb-50">
                                         <p>Qty:</p>
                                         <div className="quantity form-group">
                                             <input className="form-control qty-text" type="number" name="quantity" step={1} min={1} max={300} defaultValue={1} onChange={(event) => this.getQuantity(event)} />
                                         </div>
-                                    </div>
+                                    </div> */}
+
+
 
 
 

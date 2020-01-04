@@ -8,16 +8,17 @@ class Shop extends Component {
         super(props);
         this.state = {
             search: "",
-            data:[]
+            data: []
         }
     }
 
     componentWillMount() {
-        this.props.productList.then(data=>{
+        this.props.productList.then(data => {
             console.log(data);
             this.setState({
-            data:data
-        })});
+                data: data
+            })
+        });
     }
 
     render() {
@@ -27,6 +28,21 @@ class Shop extends Component {
                 result.push(item);
             }
         })
+
+        result.sort(function (a, b) {
+            switch (localStorage.getItem("orderby")) {
+                case "2":
+                    return b.price - a.price;
+                    break;
+
+                case "3":
+                    return a.price - b.price;
+                    break;
+
+                default:
+                    break;
+            }
+        });
 
         return (
             <div className="amado_product_area section-padding-100">
@@ -47,7 +63,7 @@ class Shop extends Component {
                         })} */}
                     </div>
                     {/* third component */}
-                    <Pagination />
+                    {/* <Pagination /> */}
                 </div>
             </div>
         );

@@ -13,6 +13,11 @@ class ShopBar extends Component {
         this.props.searchFor(event.target.value)
     }
 
+    handleChange = (event) =>{
+        localStorage.setItem("orderby", event.target.value);
+        window.location.reload();
+    }
+
 
     render() {
         return (
@@ -30,13 +35,13 @@ class ShopBar extends Component {
                         <div className="product-sorting d-flex">
                             <div className="input-group sort-by-date d-flex align-items-center mr-15">
                                 <div className="input-group-append">
-                                    <span className="input-group-text" id="basic-addon2">Sort by:</span>
+                                    <span className="input-group-text" id="basic-addon2">Price:</span>
                                 </div>
                                 <div>
-                                    <select className="form-control">
-                                        <option selected value="value">Date</option>
-                                        <option value="value">Newest</option>
-                                        <option value="value">Popular</option>
+                                    <select className="form-control" onChange={(event)=>this.handleChange(event)}>
+                                        <option selected value="1">None</option>
+                                        <option value="2">High - Low</option>
+                                        <option value="3">Low - High</option>
                                     </select>
                                 </div>
                             </div>

@@ -12,7 +12,7 @@ export default  fetch(
              return res.json();
          })
          .then(result => {
-             console.log('dcmm result',result);
+             console.log('result',result);
              return result.data.data.recordset;
          })
     .catch(error => console.log(error))

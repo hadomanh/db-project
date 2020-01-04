@@ -4,6 +4,23 @@ import { connect } from 'react-redux';
 import CartItem from './CartItem';
 
 class CartDetail extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: []
+        }
+    }
+
+    componentDidMount() {
+        this.props.cart.then(data => {
+            this.setState({
+                data: data
+            });
+            console.log('data ne cart ne <cartdetail>', this.state.data)
+        });
+    }
+
     render() {
         return (
             <div>
@@ -24,9 +41,10 @@ class CartDetail extends Component {
                         <tbody>
 
                             {
-                                this.props.cart.map((item) => (
-                                    <CartItem item={item} />
-                                ))
+                                this.state.data.map((item) => {
+                                    if(item.quantity > 0) return(<CartItem item={item} />)}
+                                    
+                                )
                             }
 
                         </tbody>
